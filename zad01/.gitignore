@@ -1,0 +1,12 @@
+#IntelliJ
+
+.idea/
+*.iml
+*.iws
+logs/
+log/
+
+*.log
+*.war
+*.jar
+*.iml
