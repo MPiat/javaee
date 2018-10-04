@@ -1,1 +1,0 @@
-Michał Piątek - zadanie 1
