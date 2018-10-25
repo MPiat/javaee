@@ -73,19 +73,21 @@ public class AddItemServlet extends HttpServlet{
         String name = request.getParameter("name");
         Date prodDate = new java.util.Date();
         try {
-
+            prodDate =  format.parse(request.getParameter("prodDate"));
         }catch (Exception e){
             out.print(e);
 
         }
 
         Boolean isWireless = Boolean.parseBoolean(request.getParameter("isWireless"));
+//        TODO: fix the frequency
 //        Double frequency = Double.parseDouble(request.getParameter("frequency"));
 
 
         Router router = new Router(name, prodDate, isWireless, 5.0);
 
-
+        out.print(router.prodDate);
+        out.print(request.getParameter("prodDate"));
         out.print("<html>\n" +
                 "   <head>\n" +
                 "     <title>Welcome</title>\n" +
@@ -103,6 +105,7 @@ public class AddItemServlet extends HttpServlet{
                 "       <input type=\"submit\" value=\"Sign-up\">\n" +
                 "     </form>\n" +
                 "     \n" +
+                "    <h6>Produkt dodany</h6>\n" +
                 "   </body>\n" +
                 " </html>");
 
