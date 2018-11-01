@@ -11,11 +11,11 @@
 <jsp:useBean id="storage" class="mpiatek.ug.service.StorageService" scope="application" />
 <jsp:useBean id="router" class="mpiatek.ug.domain.Router" scope="session" />
 
-<form action="addRouter.jsp">
+<form action="addRouter.jsp" method="post">
 
   Nazwa:<input type="text" name="name" value="${router.name}" /><br />
-  Data produkcji:<input type="date"  name="prodDate" value="${router.prodDate}" /><br />
-  Bezprzewodowy?:<input type="checkbox"  name="wireless" value="${router.wireless}" /><br />
+  Data produkcji:<input type="date"  name="prod" value="${router.prod}" /><br />
+  Bezprzewodowy?:<input type="checkbox"  name="wireless" value="true" /><br />
   Czestotliwosc:<input type="number"  name="frequency" value="${router.frequency}" /><br />
 
   <input type="submit" value=" OK ">
