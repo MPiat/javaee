@@ -16,7 +16,9 @@ public class StorageService {
         db.add(newRouter);
     }
     public void addCart(Router router){
-        cart.add(router);
+        Router newRouter = new Router(router.getName(), router.getProd(),
+                router.getWireless(),router.getFrequency());
+        cart.add(newRouter);
     }
     public List<Router> getAllRouters(){
         return db;

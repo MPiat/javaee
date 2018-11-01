@@ -15,7 +15,7 @@
   for (Router router : storage.getAllRouters()) {
 	  out.println("<p>Name: " + router.getName() + "</br> Data produkcji: " + router.getProd() + "</br>");
 	  out.println("Bezprzewodowy: " + router.getWireless() + "</br> Częstotliwość: " + router.getFrequency() + "</p><hr>");
-      out.println("<form action='addCart.jsp' method='post'>");
+      out.println("<form action='addCart.jsp' method='get'>");
 
         out.println("<input type='hidden' name='name' value="+router.getName()+" /><br />");
         out.println("<input type='hidden'  name='prod' value="+router.getProd()+" /><br />");
