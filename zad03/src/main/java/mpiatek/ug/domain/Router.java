@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 public class Router {
 
     private String name = "unknown";
-    private Date prod;// = new java.util.Date();
+    private Date prod = new java.util.Date();
     private Boolean wireless = false;
     private Double frequency = 2.4;
 
