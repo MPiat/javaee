@@ -17,7 +17,6 @@ public class ShopService {
         context.setAttribute("router_service",routerService);
     }
     static public void addToCart(int id, HttpServletRequest request,ServletContext context) {
-
         ArrayList<Router> list = (ArrayList<Router>) request.getSession().getAttribute("cart");
         RouterService routerService = (RouterService) context.getAttribute("router_service");
         list.add(routerService.getRouter(id));

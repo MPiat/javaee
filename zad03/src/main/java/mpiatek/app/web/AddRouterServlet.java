@@ -47,7 +47,7 @@ public class AddRouterServlet extends HttpServlet {
                 Double.valueOf(request.getParameter("frequency")),
                 wireless));
         getServletContext().setAttribute("router_service",routerService);
-        out.println("<html><body>Zapisano: "+ routerService.getRouter(routerService.counter-1)  +
+        out.println("<html><body>Dodano nowy router."+
                 "<p><a href=\"http://localhost:8080/zad03/shop\">Wstecz</a></p>" +
                 "<p><a href=\"http://localhost:8080/zad03/add\">Dodaj kolejny router.</a></p>" +
                 "</body></html>");
