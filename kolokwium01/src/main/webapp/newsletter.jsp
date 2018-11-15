@@ -19,7 +19,7 @@
     <input type="checkbox" name=checkboxbtn value="wireless"> Routery bezprzewodowe
     <input type="checkbox" name=checkboxbtn value="wired"> Routery przewodowe
     <input type="checkbox" name=checkboxbtn value="isps"> Dostawcy usług internetowych.
-
+    <br>
     <input type="submit" value="OK">
 </form>
 

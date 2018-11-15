@@ -28,6 +28,7 @@ public class NewsletterServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
+        getServletContext().setAttribute("newsletter_service",new NewsletterService());
         NewsletterService newsletterService = (NewsletterService) getServletContext().getAttribute("newsletter_service");
         String freq =request.getParameter("radiobtn");
         String sub = request.getParameter("checkboxbtn");
@@ -41,7 +42,7 @@ public class NewsletterServlet extends HttpServlet {
                 endDate,
                 freq,
                 sub));
-        getServletContext().setAttribute("newsletter_service",newsletterService);
+
         out.println("<html><body>Dodano nowy newsletter."+
                 "<p><a href=\"http://localhost:8080/zad03/shop\">Wstecz</a></p>" +
                 "</body></html>");
