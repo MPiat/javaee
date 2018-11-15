@@ -1,0 +1,21 @@
+Dodać funkcjonalność do aplikacji - 
+pod adresem /newsletter formularz -
+Pola :
+1. Daty (od-do)(pola tekstowe w formularzu)
+2. Częstotliwość (radio-buttons) - kilka opcji (codziennie, tyg., mies. etc.)
+3. Tematyka - propozycje związane z dziedziną(router) (check-box)
+
+Każdy użytkownik widzi swoje ustawienia (może je zmieniać)
+
+Komponent sesyjny.^
+
+Ustawienia są zapamiętywane.
+
+Pod adresem /allnewsletters(aplikacyjny)
+ można zobaczyć wszystkie ustawienia newsletterów
+
+Użytkownicy to sesje.
+
+(Na lepszą ocenę)
+Funkcja kasowania ustawień. - pod /allnewsletters - kasowanie ustawień wielu
+"userów"
