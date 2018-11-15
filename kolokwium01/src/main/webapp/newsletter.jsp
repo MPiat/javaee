@@ -8,17 +8,17 @@
 </head>
 <body>
 <h4>Newsletter</h4>
-<form action="addNewsletter.jsp" method="POST">
+<form action="http://localhost:8080/zad03/newsletter" method="POST">
     Data początkowa <input type="text" name="dateBeg" value=""><br>
     Data końcowa <input type="text" name="dateEnd" value=""><br>
     Częstotliwość:
-    <input type="radio" name="daily" value=""> Codziennie
-    <input type="radio" name="weekly" value=""> Tygodniowo
-    <input type="radio" name="monthly" value=""> Miesięcznie
+    <input type="radio" name=radiobtn value="daily"> Codziennie
+    <input type="radio" name=radiobtn value="weekly"> Tygodniowo
+    <input type="radio" name=radiobtn value="monthly"> Miesięcznie
     <br>Tematyka:
-    <input type="checkbox" name="wireless" value=""> Routery bezprzewodowe
-    <input type="checkbox" name="wired" value=""> Routery przewodowe
-    <input type="checkbox" name="isps" value=""> Dostawcy usług internetowych.
+    <input type="checkbox" name=checkboxbtn value="wireless"> Routery bezprzewodowe
+    <input type="checkbox" name=checkboxbtn value="wired"> Routery przewodowe
+    <input type="checkbox" name=checkboxbtn value="isps"> Dostawcy usług internetowych.
 
     <input type="submit" value="OK">
 </form>
