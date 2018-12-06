@@ -13,21 +13,23 @@ public class RouterManager {
 
     private List<Router> db = Collections.synchronizedList(new ArrayList<>());
 
-    public void addRouter(Router router) {
-        db.add(router);
-    }
     public void addDefaultRouter() { db.add(new Router("Linksys",2000));}
 
-    public void deleteRouter(Router router){
-        db.remove(router);
+    public void deleteRouter(Integer id){
+        db.remove(id);
     }
 
-//    //public void updateRouter(Router router){
-//        db.remove(router);
-//    }
+    public void updateRouter(Integer id, Router router){
+        Router change = db.get(id);
+        change.setName(router.getName());
+        change.setModelNum(router.getModelNum());
+    }
+    public void addRouter( Router router){
+        db.add(new Router(router.getName(),router.getModelNum()));
+    }
 
     public Router getRouter(Integer id) {
-        return new Router("TP-Link", 3000);
+        return db.get(id);
     }
 
     public List<Router> getAllRouters(){
