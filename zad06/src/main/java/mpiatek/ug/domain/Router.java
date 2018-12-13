@@ -11,6 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+// import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement
 @Entity
@@ -21,26 +22,30 @@ import javax.xml.bind.annotation.XmlRootElement;
     })
 public class Router {
 
-    private Long id;
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     private String name;
     private int modelNum;
 
-    public Router() {
-    }
+    public Router(){ }
 
     public Router(String name, int modelNum) {
         this.name = name;
         this.modelNum = modelNum;
     }
-    public Router(Long id, String name, int modelNum) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.modelNum = modelNum;
-	}
+    // public Router(@JsonProperty("name")String name, @JsonProperty("modelNum")String modelNum){
 
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    // }
+    // public Router(Long id, String name, int modelNum) {
+	// 	super();
+	// 	this.id = id;
+	// 	this.name = name;
+	// 	this.modelNum = modelNum;
+	// }
+
+
 	public Long getId() {
 		return id;
     }

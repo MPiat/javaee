@@ -30,42 +30,41 @@ public class RouterRESTService {
     @Inject
     private RouterManager rm;
 
-    @PersistenceContext
-    EntityManager em;
+    // @PersistenceContext
+    // EntityManager em;
 
-    @GET
-    @Path("/{routerId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Router getRouter(@PathParam("routerId") Long id) {
-        // Router p = rm.getRouter(id);
-        // return p;
-        return em.find(Router.class, id);
-    }
+    // @GET
+    // @Path("/{routerId}")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public Router getRouter(@PathParam("routerId") Long id) {
+    //     // Router p = rm.getRouter(id);
+    //     // return p;
+    //     // return em.find(Router.class, id);
+    // }
 
 
     @GET
     @Path("/getall")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Router> getAllRouters() {
-    //    return rm.getAllRouters();
-    return em.createNamedQuery("router.getAll").getResultList();
+       return rm.getAllRouters();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addRouter(Router router) {
         // rm.addRouter(router);
-        em.persist(router);
-
+        //em.persist(router);
+        rm.addRouter(router);
         return Response.status(201).entity("Router added.").build();
     }
 
-    @DELETE
-    public Response clearRouters() {
-        // rm.deleteAllRouters();
-        em.createNamedQuery("router.deleteAll").executeUpdate();
-        return Response.status(200).build();
-    }
+    // @DELETE
+    // public Response clearRouters() {
+    //     // rm.deleteAllRouters();
+    //     em.createNamedQuery("router.deleteAll").executeUpdate();
+    //     return Response.status(200).build();
+    // }
 
     @GET
 	@Path("/test")
