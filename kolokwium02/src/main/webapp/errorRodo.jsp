@@ -3,11 +3,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Brak zgody.</title>
+    <title>GDPR not accepted.</title>
 </head>
 <body>
-<h2>Brak zgody RODO.</h2>
-<a href="showRodo.jsp">Przejdź do strony RODO</a>
+<h2>GDPR not accepted.</h2>
+<a href="showRodo.jsp">Go to GDPR page.</a>
 
 </body>
 </html>

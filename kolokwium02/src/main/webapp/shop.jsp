@@ -24,18 +24,19 @@
 %>
 <a href="block.jsp">Add a block.</a>
 
-<h4>Block</h4>
+<h4>Available Blocks</h4>
     <%
         for(Map.Entry<Integer, Block> entry : blockService.getMap().entrySet()) {
     %>
         <form action="addToCart.jsp" method="post">
         <p><%out.println(entry.getValue());%>
         <input type="hidden" name="id" value="<%out.print(entry.getKey());%>">
-        <input type="submit" value="Dodaj do koszyka"></p></form>
+        <br>
+        <input type="submit" value="Add to cart"></p></form>
     <%
     }
 %>
-<h3>Koszyk</h3>
+<h3>Cart</h3>
 <%
     if (cart!=null)
     for(Block r : cart.getCart()){ %><p><%out.println(r);}%></p><%

@@ -3,14 +3,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>RODO</title>
+    <title>GDPR</title>
 </head>
 <body>
-<h2>RODO</h2>
+<h2>GDPR</h2>
 <form action="shop" method="post">
-    Czy akceptujesz?<br>
+    Accept?<br>
     <input type="checkbox" name="rodo" value=""><br>
-    Czy chcesz otrzymywać newsletter?<br>
+    Do you want to receive a newsletter?<br>
     <input type="checkbox" name="newsletter" value=""><br><br>
     <input type="submit" value="submit">
 </form>

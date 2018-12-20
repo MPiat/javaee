@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Dodano do koszyka</title>
+    <title>Added to cart.</title>
 </head>
 <body>
 
@@ -16,10 +16,10 @@
     blockService.removeBlock(Integer.valueOf(request.getParameter("id")));
 %>
 
-<p>Dodano do koszyka</p>
+<p>Added to cart.</p>
 <p><%blockService.getBlock(Integer.valueOf(request.getParameter("id")));%> </p>
 <p>
-    <a href="shop.jsp">Powrót</a>
+    <a href="shop.jsp">Back</a>
 </p>
 </body>
 </html>

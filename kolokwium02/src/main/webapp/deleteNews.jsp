@@ -5,10 +5,10 @@
 
 <html>
 <body>
-Moje ustawienia:
+My settings:
 <%
     settingsService.deleteSetting(Integer.valueOf(request.getParameter("id"))-1);
-    out.print("<p>" + "USUNIĘTO" + "</p>");
+    out.print("<p>" + "Deleted" + "</p>");
 %>
 </body>
 </html>

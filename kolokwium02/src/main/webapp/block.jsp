@@ -5,7 +5,7 @@ Production Date:<br>
 <input type="date" name="dateProd"><br><br>
 <!-- Dla radio name ten sam dla wszystkich. -->
 Weight:<br>
-<input type="number" name="weight"><br><br>
+<input type="number" name="weight" step="0.01"><br><br>
 <p>Type:</p>
 <p>Tough<input type="radio" id="tough" name="name" value="tough"
 ></p>

@@ -13,7 +13,6 @@ public class Block {
 
 
     public Block(String name, Date dateOfProd, double weight) {
-        // this.id = id;
         this.name = name;
         this.dateOfProd = dateOfProd;
         this.weight = weight;
@@ -79,7 +78,7 @@ public class Block {
         return "Cinder Block{" +
                 "name='" + name + '\'' +
                 ", dateOfProd=" + dateOfProd +
-                ", weight=" + weight +
+                ", weight(kg)=" + weight +
                 ", isRed=" + isRed +
                 ", isYellow=" + isYellow +
                 ", isBlack=" + isBlack +
