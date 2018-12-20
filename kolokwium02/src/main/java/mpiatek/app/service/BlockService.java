@@ -14,11 +14,11 @@ public class BlockService {
         counter++;
     }
     public Block getBlock(int id) {return map.get(id); }
-    public Block getBlock(String name) {
+    public Block getBlock(String type) {
         int i = 0;
         while(i<map.size()) {
             i++;
-            if(map.get(i).getName().equals(name)) {
+            if(map.get(i).getType().equals(type)) {
                 return map.get(i);
             }
         }

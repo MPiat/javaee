@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Block {
     private int id;
-    private String name;
+    private String type;
     private Date dateOfProd;
     private double weight;
     private boolean isRed;
@@ -12,8 +12,8 @@ public class Block {
     private boolean isYellow;
 
 
-    public Block(String name, Date dateOfProd, double weight) {
-        this.name = name;
+    public Block(String type, Date dateOfProd, double weight) {
+        this.type = type;
         this.dateOfProd = dateOfProd;
         this.weight = weight;
     }
@@ -26,12 +26,12 @@ public class Block {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Date getDateOfProd() {
@@ -76,7 +76,7 @@ public class Block {
     @Override
     public String toString() {
         return "Cinder Block{" +
-                "name='" + name + '\'' +
+                "type='" + type + '\'' +
                 ", dateOfProd=" + dateOfProd +
                 ", weight(kg)=" + weight +
                 ", isRed=" + isRed +
