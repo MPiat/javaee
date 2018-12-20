@@ -14,15 +14,14 @@ Saved!
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     String dateProd = request.getParameter("dateProd");
-    Date  dateProdD = format.parse ( dateProd);
+    Date dateProdD = format.parse(dateProd);
 
 
 
-    Block block = new Block(blockService.counter+1,request.getParameter("name"), dateProdD,request.getParameter("weight"));
-    if(request.getParameter("red")!=null) {settings.setRed(true);}
-    if(request.getParameter("yellow")!=null) {settings.setYellow(true);}
-    if(request.getParameter("black")!=null) {settings.setBlack(true);}
-    <!-- request.getSession().setAttribute("sett",settings); -->
+    Block block = new Block(request.getParameter("name"), dateProdD,Double.valueOf(request.getParameter("weight")));
+    if(request.getParameter("red")!=null) {block.setRed(true);}
+    if(request.getParameter("yellow")!=null) {block.setYellow(true);}
+    if(request.getParameter("black")!=null) {block.setBlack(true);}
     blockService.addBlock(block);
 
 %>

@@ -35,25 +35,10 @@
     <%
     }
 %>
-<!-- 
-All Settings:
-<%
-
-    for(Settings settings : settingsService.getSettings()) {
-        %>
-<form action="addToCart.jsp" method="post">
-    <% int idNum = settings.getId();            
-    out.print("<input type='hidden' name='id' value='"+ idNum + "'><br>");    %>
-        <input type="submit" value="Usun z settings"></form>
-        <%
-
-        out.print("<p>" + settings + "</p>");
-    }
-%> -->
 <h3>Koszyk</h3>
 <%
     if (cart!=null)
-    for(Router r : cart.getCart()){ %><p><%out.println(r);}%></p><%
+    for(Block r : cart.getCart()){ %><p><%out.println(r);}%></p><%
 %>
 
 </body>

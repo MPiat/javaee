@@ -12,8 +12,8 @@ public class Block {
     private boolean isYellow;
 
 
-    public Block(int id,String name, Date dateOfProd, double weight) {
-        this.id = id;
+    public Block(String name, Date dateOfProd, double weight) {
+        // this.id = id;
         this.name = name;
         this.dateOfProd = dateOfProd;
         this.weight = weight;
