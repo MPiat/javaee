@@ -25,24 +25,17 @@ public class IspManager {
 		return retrieved;
 	}
 	
-	public List<Router> getOfferOfIsp(Long id){
-		Isp retrieved = em.find(Isp.class, id);
-		List<Router> result = new ArrayList<>(retrieved.getAvRouters());
-		return result;
-	}
-		
-	@SuppressWarnings("unchecked")
-	public List<Object[]> getOfferOfIspByName(String name){		
-		return em.createNamedQuery("ispOffer.findOfferName").setParameter("name", name).getResultList();
-	}
+	public List<Router> getAllRoutersOfIsp(Long id) {
+        return em.createNamedQuery("router.getRoutersOfIsp").setParameter("id",id).getResultList();
+    }
 	
 	@SuppressWarnings("unchecked")
 	public List<Isp> getAll(){
-		return em.createNamedQuery("isp.all").getResultList();
+		return em.createNamedQuery("Isp.all").getResultList();
 	}
 	
 	public void deletAll(){
-		em.createNamedQuery("isp.delete.all").executeUpdate();
+		em.createNamedQuery("Isp.delete.all").executeUpdate();
 	}
 	
 }

@@ -16,21 +16,20 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({ 
-	@NamedQuery(name = "isp.all", query = "Select i from Isp i"),
-	@NamedQuery(name = "isp.delete.all", query = "Delete from Isp "),
-	@NamedQuery(name = "ispOffer.findOfferOfIspByName",
-	query = "Select * from Isp b JOIN b.routers a where a.name = :name")
-	})
+	@NamedQuery(name = "Isp.all", query = "Select i from Isp i"),
+	@NamedQuery(name = "Isp.getUnique", query = "Select i from Isp i WHERE i.name=:name AND i.type=:type"),
+
+})
 @XmlRootElement
 public class Isp {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String name;
 	
 	private String type;
 	
-	private List<Router> avRouters = new ArrayList<>();
 	
 	public Isp() {
 	}
@@ -41,8 +40,6 @@ public class Isp {
 		this.type = type;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -65,15 +62,6 @@ public class Isp {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	@OneToMany(mappedBy = "isps", fetch = FetchType.EAGER)
-	public List<Router> getAvRouters() {
-		return avRouters;
-	}
-
-	public void setAvRouters(List<Router> avRouters) {
-		this.avRouters = avRouters;
 	}
 	
 }

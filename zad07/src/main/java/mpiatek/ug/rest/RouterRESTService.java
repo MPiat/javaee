@@ -34,25 +34,33 @@ import mpiatek.ug.service.IspManager;
 public class RouterRESTService {
 
     @Inject
-    // @EJB
     private RouterManager rm;
 
     @Inject
-    // @EJB
     private IspManager im;
 
-    // @GET
-    // @Path("/{routerId}")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public Router getRouter(@PathParam("routerId") Long id) {
-    //     // Router p = rm.getRouter(id);
-    //     // return p;
-    //     // return em.find(Router.class, id);
-    // }
+    @GET
+    @Path("/{routerId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Router getRouter(@PathParam("routerId") Long id) {
+        return rm.getRouter(id);
+
+    }
+
+    @GET
+    @Path("/{routerId}/isp")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Isp getRoutersIsp(@PathParam("routerId") Long id) {
+        try {
+            return rm.getRouter(id).getIsp();
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 
 
     @GET
-    @Path("/getall")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Router> getAllRouters() {
        return rm.getAllRouters();
@@ -65,12 +73,11 @@ public class RouterRESTService {
         return Response.status(201).entity("Router added.").build();
     }
 
-    // @DELETE
-    // public Response clearRouters() {
-    //     // rm.deleteAllRouters();
-    //     em.createNamedQuery("router.deleteAll").executeUpdate();
-    //     return Response.status(200).build();
-    // }
+    @DELETE
+    public Response clearRouters() {
+        rm.clearRouters();
+        return Response.status(200).build();
+    }
 
     @GET
 	@Path("/test")
@@ -79,70 +86,24 @@ public class RouterRESTService {
 		return "REST Routers Service is running now!";
 	}
 
-    // @DELETE
-    // @Path("/{routerId}")
-    // public Response delRouters(@PathParam("routerId") Integer id) {
-    //     // rm.deleteRouter(id);
-    //     return Response.status(200).build();
-    // }
-
-
-    // @PUT
-    // @Consumes(MediaType.APPLICATION_JSON)
-    // @Path("/{routerId}")
-    // public Response updateRouter(@PathParam("routerId") Long id, Router router) {
-    //     // rm.updateRouter(id, router);
-    //     em.merge(router);
-    //     return Response.status(200).build();
-    // }
-    
-    // @GET
-    // @Path("/manytomany/{routerID}")
-    // @Produces(MediaType.TEXT_PLAIN)
-	// public String relations(@PathParam("routerId") Long id){
+    @DELETE
+    @Path("/{routerId}")
+    public Response delRouters(@PathParam("routerId") Long id) {
         
-    //     // Add mapping of existing objects
-	// 	Router r = new Router("TP-Link",3000);
-		
-	// 	Isp isp1 = new Isp("Orange", "LLC");
-	// 	Isp isp2 = new Isp("T-Mobile", "Inc.");
-
-	// 	List<Isp> isps = new ArrayList<>();
-	// 	isps.add(isp1);
-	// 	isps.add(isp2);
-		
-	// 	r.addIsps(isps);		
-	// 	rm.addRouter(r);
-		
-	
-	// 	System.out.println("Id isp1: " + isp1.getId());
-		
-	// 	System.out.println("\n\n@@@ Size of avRouters: " + isp1.getAvRouters().size());
-		
-	// 	return "ManyToMany";
-	// }
-
-        
-    @GET
-    @Path("/query/checkrouteroffer{ispName}")
-    @Produces(MediaType.TEXT_PLAIN)
-	public Response relations(@PathParam("ispName") String name){
-        
-        List<Object[]> rawOffers = im.getOfferOfIspByName(name);
-		JsonArrayBuilder offer = Json.createArrayBuilder();
-		
-		for(Object[] rawRouter: rawOffers){
-			
-			String rName = (String) rawRouter[0];
-			int modelNum = (Integer) rawRouter[1];
-			
-			offer.add(Json.createObjectBuilder()
-					.add("name", rName)
-					.add("modelNum", modelNum));
-			
+        if(rm.deleteRouter(id)) {
+			return Response.status(200).build();
+		} else {
+			return Response.status(404).build();
 		}
-		
-		JsonObject json =  Json.createObjectBuilder().add("result", offer).build();
-		return Response.ok(json, MediaType.APPLICATION_JSON).build();
-	}
+    }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{routerId}")
+    public Response updateRouter(@PathParam("routerId") Long id, Router router) {
+        rm.updateRouter(id, router);
+        return Response.status(200).build();
+    }
+
 }

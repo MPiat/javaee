@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.ejb.Singleton;
 
 import mpiatek.ug.domain.Router;
+import mpiatek.ug.domain.Isp;
 
 @Stateless
 public class RouterManager {
@@ -20,29 +21,37 @@ public class RouterManager {
     
     private List<Router> db = Collections.synchronizedList(new ArrayList<>());
 
-    // public void addDefaultRouter() { db.add(new Router("Linksys",2000));}
+    public boolean deleteRouter(Long id){
+        Router foundRouter = em.find(Router.class,id);
+        if(foundRouter!=null) {
+            em.remove(foundRouter);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    // public void deleteRouter(Integer id){
-    //     db.remove(id);
-    // }
-
-    public Router updateRouter(Router router){
-        // Router change = db.get(id);
-        // change.setName(router.getName());
-        // change.setModelNum(router.getModelNum());
-        return em.merge(router);
+    public boolean updateRouter(Long id, Router router){
+        Router foundRouter = em.find(Router.class,id);
+        if(foundRouter!=null) {
+            List<Isp> isps = em.createNamedQuery("Isp.all").getResultList();
+            router.setIsp(isps.get(0));
+            router.setId(foundRouter.getId());
+            em.merge(router);
+            return true;
+        }
+        return false;
     }
 
     public void addRouter( Router router){
-        // db.add(new Router(router.getName(),router.getModelNum()));
+        List<Isp> isps = em.createNamedQuery("Isp.all").getResultList();
+        router.setIsp(isps.get(0));
         em.persist(router);
     }
 
     @SuppressWarnings("unchecked")
-    public Router getRouter(Integer id) {
-        // return db.get(id);
+    public Router getRouter(Long id) {
         return em.find(Router.class, id);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -50,11 +59,8 @@ public class RouterManager {
 		return em.createNamedQuery("router.getAll").getResultList();
 	}
 
-    public void deleteAllRouters(){
-        db.clear();
-    }
     public void clearRouters(){
-		em.createNamedQuery("routers.deleteAll").executeUpdate();
+		em.createNamedQuery("router.deleteAll").executeUpdate();
 	}
 
 }

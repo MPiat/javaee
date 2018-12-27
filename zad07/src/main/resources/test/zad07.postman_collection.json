@@ -6,26 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "http://127.0.0.1:8080/zad07/api/router/getall",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Test",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Name1\",\n\t\"modelNum\":102\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/getall",
+					"raw": "http://127.0.0.1:8080/zad07/api/router/test",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -38,14 +28,14 @@
 						"zad07",
 						"api",
 						"router",
-						"getall"
+						"test"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:8080/zad07/api/router/",
+			"name": "addIsp",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -58,7 +48,43 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Name1\",\n\t\"modelNum\":102\n}"
+					"raw": "{\n\t\"name\":\"Blue\",\n\t\"type\":\"Inc.\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/isp/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"isp",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addRouter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Name34223\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8080/zad07/api/router/",
@@ -81,16 +107,26 @@
 			"response": []
 		},
 		{
-			"name": "Test",
+			"name": "getAllRouters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/manytomany",
+					"raw": "http://127.0.0.1:8080/zad07/api/router/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -103,7 +139,130 @@
 						"zad07",
 						"api",
 						"router",
-						"manytomany"
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllIsps",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/isp/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"isp",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRouter",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"NameUpdated\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRouter",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clearRouters",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						""
 					]
 				}
 			},
