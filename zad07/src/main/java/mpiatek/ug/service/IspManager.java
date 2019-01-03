@@ -27,6 +27,16 @@ public class IspManager {
 	
 	public List<Router> getAllRoutersOfIsp(Long id) {
         return em.createNamedQuery("router.getRoutersOfIsp").setParameter("id",id).getResultList();
+	}
+	
+	public boolean updateIsp(Long id, Isp isp){
+        Isp foundIsp = em.find(Isp.class,id);
+        if(foundIsp!=null) {
+            isp.setId(foundIsp.getId());
+            em.merge(isp);
+            return true;
+        }
+        return false;
     }
 	
 	@SuppressWarnings("unchecked")
@@ -34,8 +44,18 @@ public class IspManager {
 		return em.createNamedQuery("Isp.all").getResultList();
 	}
 	
-	public void deletAll(){
+	public void deleteAll(){
 		em.createNamedQuery("Isp.delete.all").executeUpdate();
 	}
+
+	public boolean deleteIsp(Long id){
+        Isp foundIsp = em.find(Isp.class,id);
+        if(foundIsp!=null) {
+            em.remove(foundIsp);
+            return true;
+        } else {
+            return false;
+        }
+    }
 	
 }

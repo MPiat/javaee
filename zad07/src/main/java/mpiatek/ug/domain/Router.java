@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @NamedQueries({ 
+    
 	@NamedQuery(name = "router.getAll", query = "Select r from Router r"),
 	@NamedQuery(name = "router.deleteAll", query = "Delete from Router "),
 	@NamedQuery(name = "router.findByName", query = "Select r from Router r where name = :name"),

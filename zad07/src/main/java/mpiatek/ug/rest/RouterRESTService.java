@@ -74,8 +74,8 @@ public class RouterRESTService {
     }
 
     @DELETE
-    public Response clearRouters() {
-        rm.clearRouters();
+    public Response deleteAll() {
+        rm.deleteAll();
         return Response.status(200).build();
     }
 
@@ -88,7 +88,7 @@ public class RouterRESTService {
 
     @DELETE
     @Path("/{routerId}")
-    public Response delRouters(@PathParam("routerId") Long id) {
+    public Response deleteRouter(@PathParam("routerId") Long id) {
         
         if(rm.deleteRouter(id)) {
 			return Response.status(200).build();

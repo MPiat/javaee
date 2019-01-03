@@ -63,12 +63,39 @@ public class IspRESTService {
 
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{ispId}")
+    public Response updateIsp(@PathParam("ispId") Long id, Isp isp) {
+        im.updateIsp(id, isp);
+        return Response.status(200).build();
+    }
+
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addIsp(Isp isp) {
 		im.addIsp(isp);
 		return Response.status(201).entity("Isp").build();
-	}
+    }
+    
+    @DELETE
+    public Response deleteAll() {
+        im.deleteAll();
+        return Response.status(200).build();
+    }
+
+    @DELETE
+    @Path("/{ispId}")
+    public Response deleteIsp(@PathParam("ispId") Long id) {
+        
+        if(im.deleteIsp(id)) {
+			return Response.status(200).build();
+		} else {
+			return Response.status(404).build();
+		}
+    }
+
     @GET
 	@Path("/test")
 	@Produces(MediaType.TEXT_PLAIN)

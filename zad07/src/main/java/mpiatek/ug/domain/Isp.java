@@ -18,10 +18,12 @@ import javax.persistence.NamedQuery;
 @NamedQueries({ 
 	@NamedQuery(name = "Isp.all", query = "Select i from Isp i"),
 	@NamedQuery(name = "Isp.getUnique", query = "Select i from Isp i WHERE i.name=:name AND i.type=:type"),
+	@NamedQuery(name = "Isp.getById", query = "Select i from Isp i WHERE i.name=:name AND i.id=:id"),
 
 })
 @XmlRootElement
 public class Isp {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

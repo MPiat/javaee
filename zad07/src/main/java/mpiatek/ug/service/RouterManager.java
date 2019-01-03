@@ -31,6 +31,7 @@ public class RouterManager {
         }
     }
 
+    // TODO: Change to allow setting isp in json
     public boolean updateRouter(Long id, Router router){
         Router foundRouter = em.find(Router.class,id);
         if(foundRouter!=null) {
@@ -42,7 +43,8 @@ public class RouterManager {
         }
         return false;
     }
-
+    
+    // TODO: Change to allow setting isp in json
     public void addRouter( Router router){
         List<Isp> isps = em.createNamedQuery("Isp.all").getResultList();
         router.setIsp(isps.get(0));
@@ -59,7 +61,7 @@ public class RouterManager {
 		return em.createNamedQuery("router.getAll").getResultList();
 	}
 
-    public void clearRouters(){
+    public void deleteAll(){
 		em.createNamedQuery("router.deleteAll").executeUpdate();
 	}
 
