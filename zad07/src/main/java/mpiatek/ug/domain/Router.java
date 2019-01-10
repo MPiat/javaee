@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "router.getAll", query = "Select r from Router r"),
 	@NamedQuery(name = "router.deleteAll", query = "Delete from Router "),
 	@NamedQuery(name = "router.findByName", query = "Select r from Router r where name = :name"),
-	@NamedQuery(name = "router.getRoutersOfIsp", query = "Select r from Router r where r.isp.id = :id"),
+    @NamedQuery(name = "router.getRoutersOfIsp", query = "Select r from Router r where r.isp.id = :id"),
+    @NamedQuery(name = "router.getRoutersOfAdmin", query = "Select r from Router r where r.admin.id = :id"),
     
 })
 public class Router {
@@ -43,6 +44,9 @@ public class Router {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @NotNull
     private Isp isp;
+
+    @ManyToOne
+    private Admin admin;
 
     public Router(){ }
 

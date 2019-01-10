@@ -24,9 +24,9 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import mpiatek.ug.domain.Router;
-import mpiatek.ug.domain.Isp;
+import mpiatek.ug.domain.Admin;
 import mpiatek.ug.service.RouterManager;
-import mpiatek.ug.service.IspManager;
+import mpiatek.ug.service.AdminManager;
 
 
 /*
@@ -45,23 +45,23 @@ EXPORT TEST FROM POSTMAN
 
 */
 
-@Path("isp")
+@Path("admin")
 @Stateless
-public class IspRESTService {
+public class AdminRESTService {
 
     @Inject
     private RouterManager rm;
 
     @Inject
-    private IspManager im;
+    private AdminManager am;
 
 
     @GET
-    @Path("/{ispId}")
+    @Path("/{adminId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Router> getIspsRouters(@PathParam("ispId") Long id) {
+    public List<Router> getAdminsRouters(@PathParam("adminId") Long id) {
         try {
-            return im.getAllRoutersOfIsp(id);
+            return am.getAllRoutersOfAdmin(id);
         } catch (Exception e) {
             return null;
         }
@@ -70,9 +70,9 @@ public class IspRESTService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Isp> getAll() {
+    public List<Admin> getAll() {
         try {
-            return im.getAll();
+            return am.getAll();
         } catch (Exception e) {
             return null;
         }
@@ -81,31 +81,31 @@ public class IspRESTService {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{ispId}")
-    public Response updateIsp(@PathParam("ispId") Long id, Isp isp) {
-        im.updateIsp(id, isp);
+    @Path("/{adminId}")
+    public Response updateAdmin(@PathParam("adminId") Long id, Admin admin) {
+        am.updateAdmin(id, admin);
         return Response.status(200).build();
     }
 
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addIsp(Isp isp) {
-		im.addIsp(isp);
-		return Response.status(201).entity("Isp").build();
+	public Response addAdmin(Admin admin) {
+		am.addAdmin(admin);
+		return Response.status(201).entity("Admin").build();
     }
     
     @DELETE
     public Response deleteAll() {
-        im.deleteAll();
+        am.deleteAll();
         return Response.status(200).build();
     }
 
     @DELETE
-    @Path("/{ispId}")
-    public Response deleteIsp(@PathParam("ispId") Long id) {
+    @Path("/{adminId}")
+    public Response deleteAdmin(@PathParam("adminId") Long id) {
         
-        if(im.deleteIsp(id)) {
+        if(am.deleteAdmin(id)) {
 			return Response.status(200).build();
 		} else {
 			return Response.status(404).build();
@@ -116,7 +116,7 @@ public class IspRESTService {
 	@Path("/test")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String test(){
-		return "REST Isps Service is running now!";
+		return "REST Admins Service is running now!";
 	}
 
 }
