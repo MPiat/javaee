@@ -14,13 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.*;
 
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "Admin.all", query = "Select i from Admin i"),
 	@NamedQuery(name = "Admin.getUnique", query = "Select i from Admin i WHERE i.name=:name AND i.email=:email"),
 	@NamedQuery(name = "Admin.getById", query = "Select i from Admin i WHERE i.name=:name AND i.id=:id"),
-
+	@NamedQuery(name = "Admin.delete.all", query = "DELETE FROM Admin")
 })
 @XmlRootElement
 public class Admin {
@@ -33,8 +34,9 @@ public class Admin {
 	
 	private String email;
 	
-    @OneToMany(mappedBy="admin")
-    private List<Router> routers;
+    // @OneToMany(mappedBy="admin")
+    // private List<Router> routers;
+	private List<Router> routers = new ArrayList<>();
 
 	public Admin() {
 	}
@@ -69,4 +71,22 @@ public class Admin {
 		this.email = email;
 	}
 	
+	public void addRouter(Router router) {
+        getRouters().add(router);
+        router.getAdmins().add(this);
+    }
+
+    public void removeRouter(Router router) {
+        getRouters().remove(router);
+        router.getAdmins().remove(this);
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "admins")
+    public List<Router> getRouters() {
+        return routers;
+    }
+
+    public void setRouters(List<Router> routers) {
+        this.routers = routers;
+    }
 }

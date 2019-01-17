@@ -56,17 +56,16 @@ public class AdminRESTService {
     private AdminManager am;
 
 
-    @GET
-    @Path("/{adminId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Router> getAdminsRouters(@PathParam("adminId") Long id) {
-        try {
-            return am.getAllRoutersOfAdmin(id);
-        } catch (Exception e) {
-            return null;
-        }
-
-    }
+    // @GET
+    // @Path("/{adminId}")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public List<Router> getAdminsRouters(@PathParam("adminId") Long id) {
+    //     try {
+    //         return am.getAllRoutersOfAdmin(id);
+    //     } catch (Exception e) {
+    //         return null;
+    //     }
+    // }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -78,6 +77,13 @@ public class AdminRESTService {
         }
 
     }
+
+    @GET
+	@Path("/{adminId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Admin getAdmin(@PathParam("adminId") long id) {
+		return am.getAdmin(id);
+	}
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

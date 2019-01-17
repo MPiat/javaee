@@ -25,6 +25,7 @@ public class AdminManager {
 		return retrieved;
 	}
 	
+	// TODO: Test that with ManyToMany
 	public List<Router> getAllRoutersOfAdmin(Long id) {
         return em.createNamedQuery("router.getRoutersOfAdmin").setParameter("id",id).getResultList();
 	}

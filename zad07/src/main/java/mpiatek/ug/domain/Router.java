@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 
@@ -40,13 +42,19 @@ public class Router {
     private Date dateOfRelease;
     private double frequency;
     private boolean isWireless;
+    private SerialNumber serialNumber;
+    private List<Admin> admins;
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @NotNull
     private Isp isp;
 
-    @ManyToOne
-    private Admin admin;
+    // @ManyToOne
+    // private Admin admin;
+
+    
+
 
     public Router(){ }
 
@@ -103,6 +111,34 @@ public class Router {
 
     public void setIsp(Isp isp) {
         this.isp = isp;
+    }
+
+    public void addAdmin(Admin admin) {
+        getAdmins().add(admin);
+        admin.getRouters().add(this);
+    }
+
+    public void removeAdmin(Admin admin) {
+        getAdmins().remove(admin);
+        admin.getRouters().remove(this);
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<Admin> getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    public SerialNumber getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(SerialNumber serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     @Override
