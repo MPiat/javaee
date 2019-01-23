@@ -1,11 +1,10 @@
 package mpiatek.ug.service;
 
-import mpiatek.ug.domain.SerialNumber;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import mpiatek.ug.domain.SerialNumber;
 
 @Stateless
 public class SerialNumberManager {

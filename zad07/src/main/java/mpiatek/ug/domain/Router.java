@@ -4,20 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.ManyToOne;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+
 import java.util.Date;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import mpiatek.ug.view.View;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,31 +21,46 @@ import javax.xml.bind.annotation.XmlRootElement;
     
 	@NamedQuery(name = "router.getAll", query = "Select r from Router r"),
 	@NamedQuery(name = "router.deleteAll", query = "Delete from Router "),
-	@NamedQuery(name = "router.findByName", query = "Select r from Router r where name = :name"),
+    @NamedQuery(name = "router.findByName", query = "Select r from Router r where name = :name"),
+    @NamedQuery(name = "router.findById", query = "SELECT l FROM Router l LEFT JOIN FETCH l.isp i LEFT JOIN FETCH l.serialNumber sn LEFT JOIN FETCH l.admins WHERE l.id = :id"),
+    @NamedQuery(name = "router.getAdmins", query = "SELECT a FROM Router r LEFT JOIN r.admins a WHERE r.id = :id"),
+    @NamedQuery(name = "router.findByAdminName", query = "SELECT l FROM Router l LEFT JOIN l.admins a WHERE a.name = :name"),
+    @NamedQuery(name = "router.findByIsp", query = "SELECT l FROM Router l JOIN l.isp i WHERE i.name = :isp"),
+    @NamedQuery(name = "router.findBySerialNum", query = "SELECT l FROM Router l JOIN l.serialNumber sn WHERE sn.number = :number"),
     @NamedQuery(name = "router.getRoutersOfIsp", query = "Select r from Router r where r.isp.id = :id"),
-    @NamedQuery(name = "router.getRoutersOfAdmin", query = "Select r from Router r where r.admin.id = :id"),
-    
+    @NamedQuery(name = "router.aboveFrequency", query = "Select r from Router r WHERE r.frequency>=:freq")
 })
 public class Router {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Internal.class)
     private long id;
 
+    @JsonView({View.RouterView.class, View.Internal.class})
     private String name;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonView(View.Internal.class)
     private Date dateOfRelease;
+    
+    @JsonView(View.Internal.class)
     private double frequency;
+    
+    @JsonView(View.RouterView.class)
     private boolean isWireless;
-    private SerialNumber serialNumber;
-    private List<Admin> admins;
+    
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name="Admin_Router", joinColumns=@JoinColumn(name="routers_id"), inverseJoinColumns=@JoinColumn(name="admins_id"))
+    private List<Admin> admins = new ArrayList<>();
 
-
+    
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @NotNull
     private Isp isp;
 
-    // @ManyToOne
-    // private Admin admin;
+    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
+    private SerialNumber serialNumber;
 
     
 
@@ -123,7 +132,6 @@ public class Router {
         admin.getRouters().remove(this);
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Admin> getAdmins() {
         return admins;
     }
@@ -132,7 +140,6 @@ public class Router {
         this.admins = admins;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
     public SerialNumber getSerialNumber() {
         return serialNumber;
     }

@@ -29,22 +29,6 @@ import mpiatek.ug.service.RouterManager;
 import mpiatek.ug.service.IspManager;
 
 
-/*
-
-OneToMany - ManyToOne Bidirectional - routers and admins(owners) 3 adnotacje mappedBy
-
-rozwiązanie przypisania obiektów jak w przykładzie
-np. Person.setCars()
-    Person.addCars(){
-        ...
-        + ustaw właściciela w każdym samochodzie
-    }
-
-EXPORT TEST FROM POSTMAN
-
-
-*/
-
 @Path("isp")
 @Stateless
 public class IspRESTService {
@@ -57,7 +41,7 @@ public class IspRESTService {
 
 
     @GET
-    @Path("/{ispId}")
+    @Path("/{ispId}/routers")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Router> getIspsRouters(@PathParam("ispId") Long id) {
         try {
@@ -67,6 +51,13 @@ public class IspRESTService {
         }
 
     }
+
+    @GET
+	@Path("/{ispId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Isp getIsp(@PathParam("ispId") long id) {
+		return im.getIsp(id);
+	}
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -79,6 +70,14 @@ public class IspRESTService {
 
     }
 
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addIsp(Isp isp) {
+		im.addIsp(isp);
+		return Response.status(201).entity("Isp").build();
+    }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{ispId}")
@@ -88,12 +87,6 @@ public class IspRESTService {
     }
 
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addIsp(Isp isp) {
-		im.addIsp(isp);
-		return Response.status(201).entity("Isp").build();
-    }
     
     @DELETE
     public Response deleteAll() {

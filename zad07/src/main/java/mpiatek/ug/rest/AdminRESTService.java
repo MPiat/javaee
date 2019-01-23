@@ -27,23 +27,8 @@ import mpiatek.ug.domain.Router;
 import mpiatek.ug.domain.Admin;
 import mpiatek.ug.service.RouterManager;
 import mpiatek.ug.service.AdminManager;
-
-
-/*
-
-OneToMany - ManyToOne Bidirectional - routers and admins(owners) 3 adnotacje mappedBy
-
-rozwiązanie przypisania obiektów jak w przykładzie
-np. Person.setCars()
-    Person.addCars(){
-        ...
-        + ustaw właściciela w każdym samochodzie
-    }
-
-EXPORT TEST FROM POSTMAN
-
-
-*/
+import com.fasterxml.jackson.annotation.JsonView;
+import mpiatek.ug.view.*;
 
 @Path("admin")
 @Stateless
@@ -55,21 +40,9 @@ public class AdminRESTService {
     @Inject
     private AdminManager am;
 
-
-    // @GET
-    // @Path("/{adminId}")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public List<Router> getAdminsRouters(@PathParam("adminId") Long id) {
-    //     try {
-    //         return am.getAllRoutersOfAdmin(id);
-    //     } catch (Exception e) {
-    //         return null;
-    //     }
-    // }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Admin> getAll() {
+    public List<Admin> getAll() { 
         try {
             return am.getAll();
         } catch (Exception e) {
@@ -79,10 +52,26 @@ public class AdminRESTService {
     }
 
     @GET
-	@Path("/{adminId}")
+	@Path("{adminId}/routers")
 	@Produces(MediaType.APPLICATION_JSON)
+	public List<Admin> getRoutersOfAdmin(@PathParam("adminId") long id) {
+		return am.getRoutersOfAdmin(id);
+	}
+
+    @GET
+	@Path("/{adminId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView({View.AdminView.class})
 	public Admin getAdmin(@PathParam("adminId") long id) {
 		return am.getAdmin(id);
+    }
+    
+    @GET
+	@Path("/name")
+	@Produces(MediaType.APPLICATION_JSON)
+	@JsonView(View.AdminView.class)
+	public List<Admin> getAdminsByName(@QueryParam("name") String name) {
+		return am.getAdminByName(name);
 	}
 
     @PUT
@@ -91,6 +80,22 @@ public class AdminRESTService {
     public Response updateAdmin(@PathParam("adminId") Long id, Admin admin) {
         am.updateAdmin(id, admin);
         return Response.status(200).build();
+    }
+
+    @POST
+    @Path("/{adminId}/{routerId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addToAdmin(@PathParam("adminId") long adminId, @PathParam("routerId") long routerId) {
+        am.addToAdmin(adminId,routerId);
+        return Response.status(201).entity("Admin").build();
+    }
+
+    @DELETE
+    @Path("/{adminId}/{routerId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteFromAdmin(@PathParam("adminId") long adminId, @PathParam("routerId") long routerId) {
+        am.deleteFromAdmin(adminId,routerId);
+        return Response.status(201).entity("Admin").build();
     }
 
 

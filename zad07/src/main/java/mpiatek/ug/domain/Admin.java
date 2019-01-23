@@ -3,25 +3,21 @@ package mpiatek.ug.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import mpiatek.ug.view.*;
 
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "Admin.all", query = "Select i from Admin i"),
-	@NamedQuery(name = "Admin.getUnique", query = "Select i from Admin i WHERE i.name=:name AND i.email=:email"),
+	@NamedQuery(name = "Admin.getByName", query = "Select i from Admin i WHERE i.name=:name"),
 	@NamedQuery(name = "Admin.getById", query = "Select i from Admin i WHERE i.name=:name AND i.id=:id"),
-	@NamedQuery(name = "Admin.delete.all", query = "DELETE FROM Admin")
+	@NamedQuery(name = "Admin.delete.all", query = "DELETE FROM Admin"),
+	@NamedQuery(name = "Admin.getRouters", query = "SELECT l FROM Admin a LEFT JOIN a.routers l LEFT JOIN FETCH l.isp LEFT JOIN FETCH l.serialNumber WHERE a.id = :id"),
 })
 @XmlRootElement
 public class Admin {
@@ -29,13 +25,14 @@ public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
+	@JsonView({View.AdminView.class})
 	private String name;
-	
+
 	private String email;
 	
-    // @OneToMany(mappedBy="admin")
-    // private List<Router> routers;
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "admins",fetch = FetchType.LAZY)
 	private List<Router> routers = new ArrayList<>();
 
 	public Admin() {
@@ -81,7 +78,6 @@ public class Admin {
         router.getAdmins().remove(this);
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "admins")
     public List<Router> getRouters() {
         return routers;
     }
