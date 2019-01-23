@@ -6,10 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import mpiatek.ug.view.*;
 
 @Entity
 @NamedQueries({ 
@@ -26,7 +24,6 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonView({View.AdminView.class})
 	private String name;
 
 	private String email;

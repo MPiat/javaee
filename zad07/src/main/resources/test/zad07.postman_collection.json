@@ -958,7 +958,7 @@
 			"response": []
 		},
 		{
-			"name": "Znalezienie Routera po nazwie ISP",
+			"name": "Znalezienie Routerów po nazwie ISP",
 			"event": [
 				{
 					"listen": "test",
@@ -1007,7 +1007,7 @@
 			"response": []
 		},
 		{
-			"name": "Znalezienie Routera z Częstotliwością Powyżej Parametru",
+			"name": "Znalezienie Routerów z Częstotliwością Powyżej Parametru",
 			"event": [
 				{
 					"listen": "test",

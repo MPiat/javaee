@@ -27,8 +27,6 @@ import mpiatek.ug.domain.Router;
 import mpiatek.ug.domain.Admin;
 import mpiatek.ug.service.RouterManager;
 import mpiatek.ug.service.AdminManager;
-import com.fasterxml.jackson.annotation.JsonView;
-import mpiatek.ug.view.*;
 
 @Path("admin")
 @Stateless
@@ -61,7 +59,6 @@ public class AdminRESTService {
     @GET
 	@Path("/{adminId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView({View.AdminView.class})
 	public Admin getAdmin(@PathParam("adminId") long id) {
 		return am.getAdmin(id);
     }
@@ -69,7 +66,6 @@ public class AdminRESTService {
     @GET
 	@Path("/name")
 	@Produces(MediaType.APPLICATION_JSON)
-	@JsonView(View.AdminView.class)
 	public List<Admin> getAdminsByName(@QueryParam("name") String name) {
 		return am.getAdminByName(name);
 	}

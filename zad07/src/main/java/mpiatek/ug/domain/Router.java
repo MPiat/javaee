@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import mpiatek.ug.view.View;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,20 +32,15 @@ public class Router {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(View.Internal.class)
     private long id;
 
-    @JsonView({View.RouterView.class, View.Internal.class})
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonView(View.Internal.class)
     private Date dateOfRelease;
     
-    @JsonView(View.Internal.class)
     private double frequency;
     
-    @JsonView(View.RouterView.class)
     private boolean isWireless;
     
     @JsonIgnore
@@ -146,16 +139,6 @@ public class Router {
 
     public void setSerialNumber(SerialNumber serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "Router{" +
-                "name='" + name + '\'' +
-                ", dateOfRelease=" + dateOfRelease +
-                ", frequency=" + frequency +
-                ", isWireless=" + isWireless +
-                '}';
     }				
 
 }

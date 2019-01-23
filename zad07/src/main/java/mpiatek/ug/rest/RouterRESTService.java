@@ -27,8 +27,6 @@ import mpiatek.ug.domain.Router;
 import mpiatek.ug.domain.Isp;
 import mpiatek.ug.service.RouterManager;
 import mpiatek.ug.service.IspManager;
-import com.fasterxml.jackson.annotation.JsonView;
-import mpiatek.ug.view.*;
 import java.util.Date;
 
 
@@ -46,7 +44,6 @@ public class RouterRESTService {
     @GET
     @Path("/{routerId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(View.Internal.class)
     public Router getRouter(@PathParam("routerId") Long id) {
         return rm.getRouter(id);
 
@@ -67,7 +64,6 @@ public class RouterRESTService {
 	@GET
 	@Path("/isp")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(View.RouterView.class)
 	public List<Router> getRoutersByIsp(@QueryParam("name") String isp) {
 		return rm.getRoutersByIsp(isp);
 	}
@@ -75,7 +71,6 @@ public class RouterRESTService {
 	@GET
 	@Path("/serial")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(View.RouterView.class)
 	public Router getRouterBySerialNumber(@QueryParam("number") Integer number) {
 		return rm.getRouterBySerialNum(number);
     }
@@ -83,7 +78,6 @@ public class RouterRESTService {
     @GET
 	@Path("/frequency")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(View.RouterView.class)
 	public List<Router> getRouterAboveFrequency(@QueryParam("freq") Double freq) {
 		return rm.getRoutersAboveFrequency(freq);
 	}
@@ -91,7 +85,6 @@ public class RouterRESTService {
 	@GET
 	@Path("/owner")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(View.RouterView.class)
 	public List<Router> getRoutersByAdmin(@QueryParam("name") String name) {
 		return rm.getRoutersByAdmin(name);
 	}
