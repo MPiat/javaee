@@ -24,6 +24,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import mpiatek.ug.domain.Router;
+import mpiatek.ug.domain.Admin;
 import mpiatek.ug.domain.Isp;
 import mpiatek.ug.service.RouterManager;
 import mpiatek.ug.service.IspManager;
@@ -41,13 +42,13 @@ public class RouterRESTService {
     @Inject
     private IspManager im;
 
-    @GET
-    @Path("/{routerId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Router getRouter(@PathParam("routerId") Long id) {
-        return rm.getRouter(id);
+    // @GET
+    // @Path("/{routerId}")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public Router getRouter(@PathParam("routerId") Long id) {
+    //     return rm.getRouter(id);
 
-    }
+    // }
 
     @GET
     @Path("/{routerId}/isp")
@@ -58,7 +59,17 @@ public class RouterRESTService {
         } catch (Exception e) {
             return null;
         }
+    }
 
+    @GET
+    @Path("/{routerId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Router getById(@PathParam("routerId") Long id) {
+        try {
+            return rm.getById(id);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 	@GET

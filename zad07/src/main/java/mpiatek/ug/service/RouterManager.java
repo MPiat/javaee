@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Date;
+import javax.persistence.criteria.*;
 
 import javax.ejb.Singleton;
 
@@ -19,7 +20,7 @@ import mpiatek.ug.domain.Admin;
 @Stateless
 public class RouterManager {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "demoPU")
     EntityManager em;
     
     public boolean deleteRouter(Long id){
@@ -32,18 +33,15 @@ public class RouterManager {
         }
     }
 
-    public boolean updateRouter(Long id, Router router){
-        Router foundRouter = em.find(Router.class,id);
-        router.setId(id);
-        Router last = getRouter(id);
-                
-        if(last != null) {
-            router.setAdmins(foundRouter.getAdmins());
-            em.merge(router);
-            return true;
-        }
-        return false;
-    }
+    public boolean updateRouter(long id,Router router) {
+		router.setId(id);
+		Router old = getRouter(id);
+		if(old != null) {
+			em.merge(router);
+			return true;
+		}
+		return false;
+	}
     
     public void addRouter(Router router){
         em.persist(router);
@@ -89,7 +87,14 @@ public class RouterManager {
 
     @SuppressWarnings("unchecked")
 	public List<Router> getAllRouters(){
-		return em.createNamedQuery("router.getAll").getResultList();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Router> criteria = builder.createQuery(Router.class);
+		Root<Router> routerRoot = criteria.from(Router.class);
+		routerRoot.fetch("isp", JoinType.LEFT);
+		routerRoot.fetch("serialNumber", JoinType.LEFT);
+		routerRoot.fetch("admins", JoinType.LEFT);
+		criteria.distinct(true);
+		return em.createQuery(criteria).getResultList();
     }
 
     @SuppressWarnings("unchecked")
@@ -97,6 +102,14 @@ public class RouterManager {
 		Query q = em.createNamedQuery("router.getAdmins");
 		q.setParameter("id", id);
 		return q.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Router getById(long id) {
+		Query q = em.createNamedQuery("router.findById");
+        q.setParameter("id", id);
+        List<Router> resultList = q.getResultList();
+		return resultList.get(0);
 	}
     
 

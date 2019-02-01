@@ -21,11 +21,9 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = "Isp.getById", query = "Select i from Isp i WHERE i.name=:name AND i.id=:id"),
 
 })
-@XmlRootElement
 public class Isp {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private Long id;
 	
 	private String name;
@@ -36,12 +34,14 @@ public class Isp {
 	public Isp() {
 	}
 
-	public Isp(String name, String type) {
-		super();
-		this.name = name;
-		this.type = type;
-	}
+	// public Isp(String name, String type) {
+	// 	super();
+	// 	this.name = name;
+	// 	this.type = type;
+	// }
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}

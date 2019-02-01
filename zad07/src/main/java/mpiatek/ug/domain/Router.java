@@ -13,25 +13,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Entity
 @NamedQueries({ 
-    
 	@NamedQuery(name = "router.getAll", query = "Select r from Router r"),
 	@NamedQuery(name = "router.deleteAll", query = "Delete from Router "),
-    @NamedQuery(name = "router.findByName", query = "Select r from Router r where name = :name"),
-    @NamedQuery(name = "router.findById", query = "SELECT l FROM Router l LEFT JOIN FETCH l.isp i LEFT JOIN FETCH l.serialNumber sn LEFT JOIN FETCH l.admins WHERE l.id = :id"),
-    @NamedQuery(name = "router.getAdmins", query = "SELECT a FROM Router r LEFT JOIN r.admins a WHERE r.id = :id"),
-    @NamedQuery(name = "router.findByAdminName", query = "SELECT l FROM Router l LEFT JOIN l.admins a WHERE a.name = :name"),
-    @NamedQuery(name = "router.findByIsp", query = "SELECT l FROM Router l JOIN l.isp i WHERE i.name = :isp"),
-    @NamedQuery(name = "router.findBySerialNum", query = "SELECT l FROM Router l JOIN l.serialNumber sn WHERE sn.number = :number"),
-    @NamedQuery(name = "router.getRoutersOfIsp", query = "Select r from Router r where r.isp.id = :id"),
-    @NamedQuery(name = "router.aboveFrequency", query = "Select r from Router r WHERE r.frequency>=:freq")
+    @NamedQuery(name = "router.findByName", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE name = :name"),
+    @NamedQuery(name = "router.findById", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.id = :id"),
+    @NamedQuery(name = "router.getAdmins", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.id = :id"),
+    @NamedQuery(name = "router.findByAdminName", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE a.name = :name"),
+    @NamedQuery(name = "router.findByIsp", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE i.name = :isp"),
+    @NamedQuery(name = "router.findBySerialNum", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE sn.number = :number"),
+    @NamedQuery(name = "router.getRoutersOfIsp", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.isp.id = :id"),
+    @NamedQuery(name = "router.aboveFrequency", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.frequency>=:freq")
 })
 public class Router {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
+
+    /*
+    
+    TODO:
+    2. Fix update for router to only include ids of other objects
+    3. Figure out @JsonView for cutom JSON
+    */
+
     private long id;
 
     private String name;
@@ -43,16 +48,10 @@ public class Router {
     
     private boolean isWireless;
     
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name="Admin_Router", joinColumns=@JoinColumn(name="routers_id"), inverseJoinColumns=@JoinColumn(name="admins_id"))
-    private List<Admin> admins = new ArrayList<>();
+    private List<Admin> admins;
 
-    
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Isp isp;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
     private SerialNumber serialNumber;
 
     
@@ -60,13 +59,16 @@ public class Router {
 
     public Router(){ }
 
-    public Router(String name, Date dateOfRelease, double frequency, boolean isWireless) {
-        this.name = name;
-        this.dateOfRelease = dateOfRelease;
-        this.frequency = frequency;
-        this.isWireless = isWireless;
-    }
+    // TODO: Maybe delete later
+    // public Router(String name, Date dateOfRelease, double frequency, boolean isWireless) {
+    //     this.name = name;
+    //     this.dateOfRelease = dateOfRelease;
+    //     this.frequency = frequency;
+    //     this.isWireless = isWireless;
+    // }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
     }
@@ -107,6 +109,7 @@ public class Router {
         this.isWireless = isWireless;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
     public Isp getIsp() {
         return isp;
     }
@@ -125,6 +128,7 @@ public class Router {
         admin.getRouters().remove(this);
     }
 
+    @ManyToMany(fetch = FetchType.LAZY)
     public List<Admin> getAdmins() {
         return admins;
     }
@@ -133,6 +137,7 @@ public class Router {
         this.admins = admins;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
     public SerialNumber getSerialNumber() {
         return serialNumber;
     }
