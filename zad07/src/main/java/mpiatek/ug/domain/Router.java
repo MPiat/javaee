@@ -21,21 +21,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "router.findById", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.id = :id"),
     @NamedQuery(name = "router.getAdmins", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.id = :id"),
     @NamedQuery(name = "router.findByAdminName", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE a.name = :name"),
-    @NamedQuery(name = "router.findByIsp", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE i.name = :isp"),
+    @NamedQuery(name = "router.findByIsp", query = "SELECT DISTINCT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE i.name = :isp"),
     @NamedQuery(name = "router.findBySerialNum", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE sn.number = :number"),
     @NamedQuery(name = "router.getRoutersOfIsp", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.isp.id = :id"),
-    @NamedQuery(name = "router.aboveFrequency", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.frequency>=:freq")
+    @NamedQuery(name = "router.aboveFrequency", query = "SELECT DISTINCT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.frequency>=:freq"),
+    @NamedQuery(name = "router.beforeDate", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.dateOfRelease<=:startDate"),
+
 })
 public class Router {
-
-
-
-    /*
-    
-    TODO:
-    2. Fix update for router to only include ids of other objects
-    3. Figure out @JsonView for cutom JSON
-    */
 
     private long id;
 
@@ -54,21 +47,11 @@ public class Router {
 
     private SerialNumber serialNumber;
 
-    
-
 
     public Router(){ }
 
-    // TODO: Maybe delete later
-    // public Router(String name, Date dateOfRelease, double frequency, boolean isWireless) {
-    //     this.name = name;
-    //     this.dateOfRelease = dateOfRelease;
-    //     this.frequency = frequency;
-    //     this.isWireless = isWireless;
-    // }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
     }

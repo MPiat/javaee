@@ -18,6 +18,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.json.Json;
@@ -42,24 +44,6 @@ public class RouterRESTService {
     @Inject
     private IspManager im;
 
-    // @GET
-    // @Path("/{routerId}")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public Router getRouter(@PathParam("routerId") Long id) {
-    //     return rm.getRouter(id);
-
-    // }
-
-    @GET
-    @Path("/{routerId}/isp")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Isp getRoutersIsp(@PathParam("routerId") Long id) {
-        try {
-            return rm.getRouter(id).getIsp();
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     @GET
     @Path("/{routerId}")
@@ -70,6 +54,12 @@ public class RouterRESTService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Router> getAllRouters() {
+       return rm.getAllRouters();
     }
 
 	@GET
@@ -87,33 +77,47 @@ public class RouterRESTService {
     }
     
     @GET
-	@Path("/frequency")
+	@Path("/above-frequency")
     @Produces(MediaType.APPLICATION_JSON)
 	public List<Router> getRouterAboveFrequency(@QueryParam("freq") Double freq) {
 		return rm.getRoutersAboveFrequency(freq);
+    }
+
+    @GET
+	@Path("/before-date")
+    @Produces(MediaType.APPLICATION_JSON)
+	public List<Router> getRouterBeforeDate(@QueryParam("startDate") String startDate) {
+        try{
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = format.parse(startDate);
+            return rm.getRoutersBeforeDate(parsedDate);
+        }catch(Exception e){
+            return null;
+        }
+
+		
 	}
 
 	@GET
-	@Path("/owner")
+	@Path("/admin")
     @Produces(MediaType.APPLICATION_JSON)
 	public List<Router> getRoutersByAdmin(@QueryParam("name") String name) {
 		return rm.getRoutersByAdmin(name);
 	}
-
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Router> getAllRouters() {
-       return rm.getAllRouters();
-    }
-
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addRouter(Router router) {
         rm.addRouter(router);
         return Response.status(201).entity("Router added.").build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{routerId}")
+    public Response updateRouter(@PathParam("routerId") Long id, Router router) {
+        rm.updateRouter(id, router);
+        return Response.status(200).build();
     }
 
     @DELETE
@@ -131,15 +135,6 @@ public class RouterRESTService {
 		} else {
 			return Response.status(404).build();
 		}
-    }
-
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{routerId}")
-    public Response updateRouter(@PathParam("routerId") Long id, Router router) {
-        rm.updateRouter(id, router);
-        return Response.status(200).build();
     }
 
     @GET

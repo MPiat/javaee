@@ -283,7 +283,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Name2\",\n\t\"dateOfRelease\":\"2019-12-27\",\n\t\"frequency\":5.0,\n\t\"isWireless\":true,\n    \"isp\": {\n        \"id\": 1\n    },\n    \"serialNumber\":{\n    \t\"id\": 2\n    },\n    \"admins\":[{\n\t\t\"id\": 2\n\t},{\n\t\t\"id\": 3\n\t}]\n}"
+					"raw": "{\n\t\"name\":\"Name2\",\n\t\"dateOfRelease\":\"2019-12-27\",\n\t\"frequency\":5.0,\n\t\"isWireless\":true,\n    \"isp\": {\n        \"id\": 1\n    },\n    \"serialNumber\":{\n    \t\"id\": 2\n    },\n    \"admins\":[{\n\t\t\"id\": 1\n\t},{\n\t\t\"id\": 2\n\t}]\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8080/zad07/api/router/",
@@ -379,7 +379,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/admin/3/5",
+					"raw": "http://127.0.0.1:8080/zad07/api/admin/2/add-router/2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -392,8 +392,9 @@
 						"zad07",
 						"api",
 						"admin",
-						"3",
-						"5"
+						"2",
+						"add-router",
+						"2"
 					]
 				}
 			},
@@ -486,49 +487,6 @@
 			"response": []
 		},
 		{
-			"name": "Pojedynczy Router",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "167a2ffb-0c91-4864-93d7-9f1d47bf823b",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/4",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"zad07",
-						"api",
-						"router",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Lista Routerów",
 			"event": [
 				{
@@ -576,6 +534,49 @@
 						"api",
 						"router",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pojedynczy Router",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "167a2ffb-0c91-4864-93d7-9f1d47bf823b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						"1"
 					]
 				}
 			},
@@ -662,138 +663,6 @@
 						"api",
 						"serial",
 						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "(FIX) Lista Routerów Admina",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "9072856d-f604-4117-9b05-6a273c481496",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/admin/2/routers",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"zad07",
-						"api",
-						"admin",
-						"2",
-						"routers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "(FIX^) Lista Routerów Admina 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "32b20c9b-99b5-40e2-86e6-b74939f5ef4c",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/admin/3/routers",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"zad07",
-						"api",
-						"admin",
-						"3",
-						"routers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ISP Routera",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f92de602-cf2f-4272-8b46-97f1f8ec4af9",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/4/isp",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"zad07",
-						"api",
-						"router",
-						"4",
-						"isp"
 					]
 				}
 			},
@@ -970,7 +839,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/frequency?freq=3.0",
+					"raw": "http://127.0.0.1:8080/zad07/api/router/above-frequency?freq=3.0",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -983,12 +852,47 @@
 						"zad07",
 						"api",
 						"router",
-						"frequency"
+						"above-frequency"
 					],
 					"query": [
 						{
 							"key": "freq",
 							"value": "3.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Router z Datą Przed Podaną w Parametrze",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/before-date?startDate=2018-12-28",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						"before-date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2018-12-28"
 						}
 					]
 				}
@@ -1067,7 +971,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"NameUpdated\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true,\n\t\"isp\":{\n\t\t\"id\":1,\n\t\t\"name\":\"Green\",\n\t\t\"type\":\"Co.\"\n\t},\n\t\"admins\":[{\n\t\t\"id\":2\n\t}],\n\t\"serialNumber\":{\n\t\t\"id\":1,\n\t\t\"number\":9876\n\t}\n}"
+					"raw": "{\n\t\"name\":\"NameUpdated\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true,\n\t\"isp\":{\n\t\t\"id\":1\n\t},\n\t\"admins\":[{\n\t\t\"id\":2\n\t}],\n\t\"serialNumber\":{\n\t\t\"id\":1\n\t}\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8080/zad07/api/router/5",
@@ -1140,7 +1044,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Serial Number",
+			"name": "Edycja Numeru Seryjnego",
 			"event": [
 				{
 					"listen": "test",
@@ -1307,7 +1211,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/4",
+					"raw": "http://127.0.0.1:8080/zad07/api/router/2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1320,7 +1224,7 @@
 						"zad07",
 						"api",
 						"router",
-						"4"
+						"2"
 					]
 				}
 			},

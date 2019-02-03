@@ -37,12 +37,12 @@ public class SerialNumberManager {
     }
 
     @SuppressWarnings("unchecked")
-    public List<SerialNumber> getAllSerialNumbers() {
+    public List<SerialNumber> getAll() {
         return em.createNamedQuery("serialNumber.all").getResultList();
     }
 
     @SuppressWarnings("unchecked")
-    public void deleteAllSerialNumbers(){
+    public void deleteAll(){
         em.createNamedQuery("serialNumber.delete.all").executeUpdate();
     }
 }

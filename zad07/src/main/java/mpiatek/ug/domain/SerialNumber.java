@@ -12,9 +12,7 @@ public class SerialNumber {
     private Integer number;
 
 
-    public SerialNumber() {
-
-    }
+    public SerialNumber() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

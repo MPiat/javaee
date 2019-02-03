@@ -29,17 +29,10 @@ public class Admin {
 	
 	private List<Router> routers = new ArrayList<>();
 
-	public Admin() {
-	}
-
-	// public Admin(String name, String email) {
-	// 	super();
-	// 	this.name = name;
-	// 	this.email = email;
-	// }
+	public Admin() {}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

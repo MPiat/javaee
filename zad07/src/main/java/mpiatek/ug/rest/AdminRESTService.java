@@ -49,12 +49,7 @@ public class AdminRESTService {
 
     }
 
-    @GET
-	@Path("{adminId}/routers")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Admin> getRoutersOfAdmin(@PathParam("adminId") long id) {
-		return am.getRoutersOfAdmin(id);
-	}
+
 
     @GET
 	@Path("/{adminId}")
@@ -79,7 +74,7 @@ public class AdminRESTService {
     }
 
     @POST
-    @Path("/{adminId}/{routerId}")
+    @Path("/{adminId}/add-router/{routerId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addToAdmin(@PathParam("adminId") long adminId, @PathParam("routerId") long routerId) {
         am.addToAdmin(adminId,routerId);

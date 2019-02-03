@@ -49,7 +49,6 @@ public class IspRESTService {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     @GET

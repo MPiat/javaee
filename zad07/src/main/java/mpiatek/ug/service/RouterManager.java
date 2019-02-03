@@ -21,7 +21,26 @@ import mpiatek.ug.domain.Admin;
 public class RouterManager {
 
     @PersistenceContext(unitName = "demoPU")
-    EntityManager em;
+	EntityManager em;
+	
+	public void addRouter(Router router){
+        em.persist(router);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Router getRouter(Long id) {
+        Router foundRouter = em.find(Router.class,id);
+        return foundRouter;
+        
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Router getById(long id) {
+		Query q = em.createNamedQuery("router.findById");
+        q.setParameter("id", id);
+        List<Router> resultList = q.getResultList();
+		return resultList.get(0);
+	}
     
     public boolean deleteRouter(Long id){
         Router router = getRouter(id);
@@ -43,17 +62,6 @@ public class RouterManager {
 		return false;
 	}
     
-    public void addRouter(Router router){
-        em.persist(router);
-    }
-
-    @SuppressWarnings("unchecked")
-    public Router getRouter(Long id) {
-        Router foundRouter = em.find(Router.class,id);
-        return foundRouter;
-        
-    }
-
     @SuppressWarnings("unchecked")
 	public Router getRouterBySerialNum(Integer number) {
 		Query q = em.createNamedQuery("router.findBySerialNum");
@@ -83,6 +91,12 @@ public class RouterManager {
         Query q =  em.createNamedQuery("router.aboveFrequency");
         q.setParameter("freq", freq);
         return q.getResultList();
+	}
+	
+	public List<Router> getRoutersBeforeDate(Date startDate) {
+        Query q =  em.createNamedQuery("router.beforeDate");
+        q.setParameter("startDate", startDate);
+        return q.getResultList();
     }
 
     @SuppressWarnings("unchecked")
@@ -104,13 +118,7 @@ public class RouterManager {
 		return q.getResultList();
     }
     
-    @SuppressWarnings("unchecked")
-	public Router getById(long id) {
-		Query q = em.createNamedQuery("router.findById");
-        q.setParameter("id", id);
-        List<Router> resultList = q.getResultList();
-		return resultList.get(0);
-	}
+
     
 
 	@SuppressWarnings("unchecked")

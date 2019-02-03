@@ -34,14 +34,8 @@ public class Isp {
 	public Isp() {
 	}
 
-	// public Isp(String name, String type) {
-	// 	super();
-	// 	this.name = name;
-	// 	this.type = type;
-	// }
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

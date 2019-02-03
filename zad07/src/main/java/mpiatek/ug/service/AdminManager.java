@@ -56,13 +56,6 @@ public class AdminManager {
 	public List<Admin> getAll(){
 		return em.createNamedQuery("Admin.all").getResultList();
     }
-    
-    @SuppressWarnings("unchecked")
-	public List<Admin> getRoutersOfAdmin(long id){
-        Query q = em.createNamedQuery("Admin.getRouters");
-        q.setParameter("id", id);
-        return q.getResultList();    
-    }
 
     @SuppressWarnings("unchecked")
     public List<Admin> getAdminByName(String name) {

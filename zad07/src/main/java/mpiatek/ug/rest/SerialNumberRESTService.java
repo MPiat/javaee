@@ -26,8 +26,8 @@ public class SerialNumberRESTService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<SerialNumber> getSerialNumbers() {
-		return sm.getAllSerialNumbers();
+	public List<SerialNumber> getAll() {
+		return sm.getAll();
 	}
 
 	@POST
@@ -41,14 +41,15 @@ public class SerialNumberRESTService {
 	@Path("/{serialNumberId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public SerialNumber updateSerialNumber(@PathParam("serialNumberId") long id, SerialNumber serialNumber) {
-		return sm.updateSerialNumber(serialNumber, id);
+	public Response updateSerialNumber(@PathParam("serialNumberId") long id, SerialNumber serialNumber) {
+		sm.updateSerialNumber(serialNumber, id);
+		return Response.status(200).build();
 	}
 
 
 	@DELETE
-	public Response clearSerialNumbers() {
-		sm.deleteAllSerialNumbers();
+	public Response deleteAll() {
+		sm.deleteAll();
 		return Response.status(Response.Status.OK).build();
 	}
 
