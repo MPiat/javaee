@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @NamedQueries({ 
-	@NamedQuery(name = "router.getAll", query = "Select r from Router r"),
+	@NamedQuery(name = "router.getAll", query = "SELECT DISTINCT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a"),
 	@NamedQuery(name = "router.deleteAll", query = "Delete from Router "),
     @NamedQuery(name = "router.findByName", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE name = :name"),
     @NamedQuery(name = "router.findById", query = "SELECT r FROM Router r LEFT JOIN FETCH r.isp i LEFT JOIN FETCH r.serialNumber sn LEFT JOIN FETCH r.admins a WHERE r.id = :id"),

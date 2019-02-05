@@ -101,14 +101,7 @@ public class RouterManager {
 
     @SuppressWarnings("unchecked")
 	public List<Router> getAllRouters(){
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Router> criteria = builder.createQuery(Router.class);
-		Root<Router> routerRoot = criteria.from(Router.class);
-		routerRoot.fetch("isp", JoinType.LEFT);
-		routerRoot.fetch("serialNumber", JoinType.LEFT);
-		routerRoot.fetch("admins", JoinType.LEFT);
-		criteria.distinct(true);
-		return em.createQuery(criteria).getResultList();
+		return em.createNamedQuery("router.getAll").getResultList();
     }
 
     @SuppressWarnings("unchecked")
