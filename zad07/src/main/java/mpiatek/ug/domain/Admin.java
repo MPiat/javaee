@@ -57,15 +57,6 @@ public class Admin {
 		this.email = email;
 	}
 	
-	public void addRouter(Router router) {
-        getRouters().add(router);
-        router.getAdmins().add(this);
-    }
-
-    public void removeRouter(Router router) {
-        getRouters().remove(router);
-        router.getAdmins().remove(this);
-	}
 	@JsonIgnore
 	@ManyToMany(mappedBy = "admins", fetch = FetchType.EAGER)
     public List<Router> getRouters() {

@@ -971,10 +971,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"NameUpdated\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true,\n\t\"isp\":{\n\t\t\"id\":1\n\t},\n\t\"admins\":[{\n\t\t\"id\":2\n\t}],\n\t\"serialNumber\":{\n\t\t\"id\":1\n\t}\n}"
+					"raw": "{\n\t\"name\":\"NameUpdated\",\n\t\"dateOfRelease\":\"2018-12-27\",\n\t\"frequency\":2.4,\n\t\"isWireless\":true,\n\t\"isp\":{\n\t\t\"id\":1\n\t},\n\t\"admins\":[{\n\t\t\"id\": 1\n\t},{\n\t\t\"id\": 2\n\t}],\n\t\"serialNumber\":{\n\t\t\"id\":1\n\t}\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/5",
+					"raw": "http://127.0.0.1:8080/zad07/api/router/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -987,7 +987,7 @@
 						"zad07",
 						"api",
 						"router",
-						"5"
+						"1"
 					]
 				}
 			},
