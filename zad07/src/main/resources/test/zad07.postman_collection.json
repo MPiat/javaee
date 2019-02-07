@@ -401,6 +401,59 @@
 			"response": []
 		},
 		{
+			"name": "Lista Routerów",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06dd514c-fde6-4b3f-957f-eb80f7b3d96e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Admin",
 			"event": [
 				{
@@ -480,59 +533,6 @@
 						"zad07",
 						"api",
 						"admin",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Lista Routerów",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "06dd514c-fde6-4b3f-957f-eb80f7b3d96e",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8080/zad07/api/router/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8080",
-					"path": [
-						"zad07",
-						"api",
-						"router",
 						""
 					]
 				}
@@ -1139,6 +1139,37 @@
 						"admin",
 						"2",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usunięcie Routera od Admnina",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/admin/2/remove-router/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"admin",
+						"2",
+						"remove-router",
+						"2"
 					]
 				}
 			},

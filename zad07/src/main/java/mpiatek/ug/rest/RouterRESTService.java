@@ -27,9 +27,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import mpiatek.ug.domain.Router;
 import mpiatek.ug.domain.Admin;
-import mpiatek.ug.domain.Isp;
 import mpiatek.ug.service.RouterManager;
-import mpiatek.ug.service.IspManager;
 import java.util.Date;
 
 
@@ -40,10 +38,6 @@ public class RouterRESTService {
 
     @Inject
     private RouterManager rm;
-
-    @Inject
-    private IspManager im;
-
 
     @GET
     @Path("/{routerId}")

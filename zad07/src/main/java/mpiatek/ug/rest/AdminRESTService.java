@@ -82,7 +82,7 @@ public class AdminRESTService {
     }
 
     @DELETE
-    @Path("/{adminId}/{routerId}")
+    @Path("/{adminId}/remove-router/{routerId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteFromAdmin(@PathParam("adminId") long adminId, @PathParam("routerId") long routerId) {
         am.deleteFromAdmin(adminId,routerId);
