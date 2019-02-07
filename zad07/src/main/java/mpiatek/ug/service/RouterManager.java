@@ -22,6 +22,21 @@ public class RouterManager {
 
     @PersistenceContext(unitName = "demoPU")
 	EntityManager em;
+
+	// Criteria Builder
+	public List<Router> getRoutersAfterDate(Date startDate){
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Router> criteria = builder.createQuery(Router.class);
+		Root<Router> laptopRoot = criteria.from(Router.class);
+		laptopRoot.fetch("isp", JoinType.LEFT);
+		laptopRoot.fetch("serialNumber", JoinType.LEFT);
+		laptopRoot.fetch("admins", JoinType.LEFT);
+		Predicate condition = builder.greaterThanOrEqualTo(laptopRoot.get("dateOfRelease"), startDate);
+		criteria.where(condition);
+		criteria.distinct(true);
+		return em.createQuery(criteria).getResultList();
+	}
+	
 	
 	public void addRouter(Router router){
         em.persist(router);
@@ -102,7 +117,9 @@ public class RouterManager {
     @SuppressWarnings("unchecked")
 	public List<Router> getAllRouters(){
 		return em.createNamedQuery("router.getAll").getResultList();
-    }
+	}
+	
+
 
     @SuppressWarnings("unchecked")
 	public List<Admin> getAdmins(long id) {

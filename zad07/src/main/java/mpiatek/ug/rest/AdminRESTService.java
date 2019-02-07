@@ -48,9 +48,7 @@ public class AdminRESTService {
         }
 
     }
-
-
-
+    
     @GET
 	@Path("/{adminId}")
     @Produces(MediaType.APPLICATION_JSON)

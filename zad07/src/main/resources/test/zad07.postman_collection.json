@@ -944,6 +944,41 @@
 			"response": []
 		},
 		{
+			"name": "Znalezienie Routera z dateOfRelease po Dacie z parametru",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/zad07/api/router/after-date?startDate=2018-12-27",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"zad07",
+						"api",
+						"router",
+						"after-date"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2018-12-27"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Edycja Routera",
 			"event": [
 				{

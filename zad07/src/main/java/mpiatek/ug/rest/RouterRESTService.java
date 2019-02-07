@@ -29,6 +29,7 @@ import mpiatek.ug.domain.Router;
 import mpiatek.ug.domain.Admin;
 import mpiatek.ug.service.RouterManager;
 import java.util.Date;
+import java.text.ParseException;
 
 
 
@@ -87,9 +88,22 @@ public class RouterRESTService {
             return rm.getRoutersBeforeDate(parsedDate);
         }catch(Exception e){
             return null;
-        }
+        }	
+    }
+    
 
-		
+    // Criteria builder w tym
+    @GET
+	@Path("/after-date")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRoutersAfterDate(@QueryParam("startDate") String startDate) {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(startDate);
+			return Response.ok(rm.getRoutersAfterDate(date), MediaType.APPLICATION_JSON).build();
+		} catch (ParseException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Date format: yyyy-MM-dd").build();
+		}
 	}
 
 	@GET
